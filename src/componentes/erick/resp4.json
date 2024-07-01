@@ -1,0 +1,16 @@
+{
+  "homogeneidad_respuesta": "consistencia_en_la_estructura",
+  "autonomia_local_respuesta": "lecturas_y_escrituras_distribuidas",
+  "independencia_sitio_central_respuesta": "replicacion_y_particion_horizontal",
+  "operacion_continua_respuesta": "replicacion_y_cluster_mysql",
+  "independencia_ubicacion_respuesta": "servidores_en_diferentes_lugares",
+  "independencia_fragmentacion_respuesta": "parcialmente",
+  "independencia_replicacion_respuesta": "configuracion_manual",
+  "consultas_distribuidas_respuesta": "federated_tables",
+  "transacciones_distribuidas_respuesta": "coordinacion_por_logica_de_aplicacion",
+  "independencia_hardware_respuesta": "flexibilidad_en_hardware",
+  "independencia_sistema_operativo_respuesta": "flexibilidad_sistemas_operativos",
+  "independencia_red_respuesta": "ssl_tls"
+}
+
+  
