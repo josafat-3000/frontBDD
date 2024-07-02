@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Adan = () => {
+const  adan = () => {
   const [score, setScore] = useState(null);
   const [answers, setAnswers] = useState({
     q1: '',
@@ -487,4 +487,4 @@ const styles = {
   },
 };
 
-export default Adan;
+export default adan;

@@ -1,6 +1,44 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 const ModeloEntidadRelacion = () => {
+  const [score, setScore] = useState(null);
+  const [answers, setAnswers] = useState({
+    q1: '',
+    q2: '',
+    q3: '',
+    q4: [],
+  });
+
+  const handleChange = (event) => {
+    const { name, value, type, checked } = event.target;
+
+    if (type === 'checkbox') {
+      setAnswers((prevAnswers) => {
+        const updatedAnswers = prevAnswers[name].includes(value)
+          ? prevAnswers[name].filter((answer) => answer !== value)
+          : [...prevAnswers[name], value];
+        return { ...prevAnswers, [name]: updatedAnswers };
+      });
+    } else {
+      setAnswers({
+        ...answers,
+        [name]: value,
+      });
+    }
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    let newScore = 0;
+
+    if (answers.q1 === 'a') newScore++;
+    if (answers.q2 === 'c') newScore++;
+    if (answers.q3 === 'b') newScore++;
+    if (JSON.stringify(answers.q4.sort()) === JSON.stringify(['a', 'c'])) newScore++;
+
+    setScore(newScore);
+  };
+
   return (
     <div style={styles.container}>
       <h1 style={styles.header}>Modelo Entidad-Relación</h1>
@@ -78,6 +116,188 @@ Relaciones:
   - Pedido (1) --- (N) Producto
 `}
       </pre>
+
+      <h1 style={styles.header}>Cuestionario</h1>
+      <form onSubmit={handleSubmit}>
+        <div style={styles.question}>
+          <p>1. ¿Qué representan las entidades en un modelo ER?</p>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q1"
+              value="a"
+              checked={answers.q1 === 'a'}
+              onChange={handleChange}
+            />
+            a) Objetos o conceptos del mundo real con existencia independiente
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q1"
+              value="b"
+              checked={answers.q1 === 'b'}
+              onChange={handleChange}
+            />
+            b) Relaciones entre objetos
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q1"
+              value="c"
+              checked={answers.q1 === 'c'}
+              onChange={handleChange}
+            />
+            c) Atributos de una entidad
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q1"
+              value="d"
+              checked={answers.q1 === 'd'}
+              onChange={handleChange}
+            />
+            d) Esquemas de bases de datos
+          </label>
+        </div>
+
+        <div style={styles.question}>
+          <p>2. ¿Qué son los atributos en una entidad?</p>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q2"
+              value="a"
+              checked={answers.q2 === 'a'}
+              onChange={handleChange}
+            />
+            a) Entidades con existencia independiente
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q2"
+              value="b"
+              checked={answers.q2 === 'b'}
+              onChange={handleChange}
+            />
+            b) Relaciones entre entidades
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q2"
+              value="c"
+              checked={answers.q2 === 'c'}
+              onChange={handleChange}
+            />
+            c) Propiedades o características de una entidad
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q2"
+              value="d"
+              checked={answers.q2 === 'd'}
+              onChange={handleChange}
+            />
+            d) Claves foráneas en una entidad
+          </label>
+        </div>
+
+        <div style={styles.question}>
+          <p>3. ¿Qué representa la relación "Cliente - Pedido" en un modelo ER?</p>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q3"
+              value="a"
+              checked={answers.q3 === 'a'}
+              onChange={handleChange}
+            />
+            a) Un pedido puede ser realizado por un solo cliente
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q3"
+              value="b"
+              checked={answers.q3 === 'b'}
+              onChange={handleChange}
+            />
+            b) Un cliente puede realizar muchos pedidos
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q3"
+              value="c"
+              checked={answers.q3 === 'c'}
+              onChange={handleChange}
+            />
+            c) Un cliente puede realizar solo un pedido
+          </label>
+          <label style={styles.label}>
+            <input
+              type="radio"
+              name="q3"
+              value="d"
+              checked={answers.q3 === 'd'}
+              onChange={handleChange}
+            />
+            d) Muchos clientes pueden realizar muchos pedidos
+          </label>
+        </div>
+
+        <div style={styles.question}>
+          <p>4. Selecciona los atributos del "Producto" en un modelo ER:</p>
+          <label style={styles.label}>
+            <input
+              type="checkbox"
+              name="q4"
+              value="a"
+              checked={answers.q4.includes('a')}
+              onChange={handleChange}
+            />
+            a) ID Producto
+          </label>
+          <label style={styles.label}>
+            <input
+              type="checkbox"
+              name="q4"
+              value="b"
+              checked={answers.q4.includes('b')}
+              onChange={handleChange}
+            />
+            b) Nombre
+          </label>
+          <label style={styles.label}>
+            <input
+              type="checkbox"
+              name="q4"
+              value="c"
+              checked={answers.q4.includes('c')}
+              onChange={handleChange}
+            />
+            c) Precio
+          </label>
+          <label style={styles.label}>
+            <input
+              type="checkbox"
+              name="q4"
+              value="d"
+              checked={answers.q4.includes('d')}
+              onChange={handleChange}
+            />
+            d) ID Pedido
+          </label>
+        </div>
+
+        <button type="submit" style={styles.button}>Enviar</button>
+      </form>
+      {score !== null && <p>Tu puntuación es: {score}/4</p>}
     </div>
   );
 };
@@ -101,6 +321,23 @@ const styles = {
   image: {
     maxWidth: '100%',
     height: 'auto',
+  },
+  question: {
+    marginBottom: '20px',
+  },
+  label: {
+    display: 'block',
+    marginBottom: '8px',
+  },
+  button: {
+    display: 'block',
+    width: '100%',
+    padding: '10px',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer',
   },
 };
 
