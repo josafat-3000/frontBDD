@@ -1,15 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useContext  } from 'react';
 import { Form, Input, Button, Typography } from 'antd';
-import { Link } from 'react-router-dom';
+import axios from 'axios';
+import { AuthContext } from "../context/auth";
+import { Link, useNavigate } from 'react-router-dom';
 
 const { Title } = Typography;
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const { setAuthState } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  const onFinish = (values) => {
-    console.log('Success:', values);
+  const onFinish = async (values) => {
+    axios.post("http://localhost:3000/api/auth/login", values).then((response) => {
+      if (response.data.error) {
+        alert(response.data.error);
+      } else {
+        localStorage.setItem("accessToken", response.data.token);
+        setAuthState({
+          username: response.data.username,
+          id: response.data.id,
+          status: true,
+        });
+        navigate('/home');
+      }
+    });
   };
 
   const onFinishFailed = (errorInfo) => {

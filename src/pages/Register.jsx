@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Select, Typography, message } from 'antd';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { registerUser, getRoles, getSchools } from '../api/user';
+
 
 const { Title } = Typography;
 const { Option } = Select;
@@ -9,6 +10,7 @@ const { Option } = Select;
 const Register = () => {
   const [roles, setRoles] = useState([]);
   const [schools, setSchools] = useState([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -24,10 +26,17 @@ const Register = () => {
   }, []);
 
   const onFinish = async (values) => {
+    console.log(values)
     try {
-      await registerUser(values);
-      message.success('User registered successfully');
+      const response = await registerUser(values);
+      if (response.error) {
+        message.error(response.error);
+      } else {
+        message.success('User registered successfully');
+        navigate('/login');
+      }
     } catch (error) {
+      console.error('Failed to register user:', error);
       message.error('Failed to register user');
     }
   };
@@ -40,8 +49,9 @@ const Register = () => {
         onFinish={onFinish}
         layout="vertical"
       >
+
         <Form.Item
-          name="nombre_U"
+          name="nombre"
           label="Nombre"
           rules={[{ required: true, message: 'Por favor, ingrese su nombre!' }]}
         >
@@ -49,7 +59,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="correo_U"
+          name="correo"
           label="Correo Electrónico"
           rules={[
             { required: true, message: 'Por favor, ingrese su correo electrónico!' },
@@ -60,7 +70,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="contrasena_U"
+          name="password"
           label="Contraseña"
           rules={[{ required: true, message: 'Por favor, ingrese su contraseña!' }]}
         >
@@ -68,7 +78,7 @@ const Register = () => {
         </Form.Item>
 
         <Form.Item
-          name="id_escuela_U"
+          name="id_esc"
           label="Escuela"
           rules={[{ required: true, message: 'Por favor, seleccione su escuela!' }]}
         >

@@ -1,9 +1,9 @@
 import axios from 'axios';
 
-const API_URL = 'http://tu-api-url.com'; // Cambia esto a tu URL de API
+const API_URL = 'http://localhost:3000/api'; // Cambia esto a tu URL de API
 
 export const registerUser = async (userData) => {
-  const response = await axios.post(`${API_URL}/register`, userData);
+  const response = await axios.post(`${API_URL}/auth/`, userData);
   return response.data;
 };
 
