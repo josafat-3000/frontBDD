@@ -1,8 +1,3 @@
-
-
-
-
-
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Layout } from 'antd';
 import 'antd/dist/reset.css';
@@ -16,6 +11,8 @@ import Cuatro from "./componentes/erick/4";
 import Cinco from "./componentes/mike/5";
 import Seis from "./componentes/erick/6/6";
 import Siete from "./componentes/mike/7";
+import Ocho from "./componentes/josa/8";
+import Nueve from "./componentes/mike/9"
 import Register from "./pages/Register";
 
 const { Header, Content, Footer } = Layout;
@@ -41,8 +38,8 @@ function App() {
             <Route path="/5" element={<Cinco/>} />
             <Route path="/6" element={<Seis/>} />
             <Route path="/7" element={<Siete/>} />
-            <Route path="/8" element={<h1>Events</h1>} />
-            <Route path="/9" element={<h1>Events</h1>} />
+            <Route path="/8" element={<Ocho/>} />
+            <Route path="/9" element={<Nueve/>} />
           </Routes>
         </BrowserRouter>
       </Content>
